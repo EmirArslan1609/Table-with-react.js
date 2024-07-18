@@ -7,9 +7,9 @@ import TablePage from "./Pages/TablePage";
 function App(){
     return(
         <div className="relative">
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-start">
             <Sidebar />
-            <div>
+            <div className="mx-8 my-1">
                 <Route path="/dropdown">
                     <DropdownPage />
                 </Route>

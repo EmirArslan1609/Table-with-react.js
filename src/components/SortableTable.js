@@ -1,30 +1,11 @@
 import Table from "./table";
-import  {useState} from 'react';
+import useSort from "../hooks/useSort";
+import { GoChevronDown, GoChevronUp } from "react-icons/go";
 
-function SortableTable(props, data){
-    const {config} = props;
-    const [sortBy,setSortBy] = useState(null);
-    const [sortOrder,setSortOrder] = useState(null);
 
-    let sortedOrder = data;
-    if(sortOrder && sortBy){
-        const {sortValue} = config.find(column => column.label === sortBy);
-    }
-
-    const handleClick = (label) =>{
-        if(sortOrder===null){
-            setSortOrder('asc');
-            setSortBy(label);
-        }
-        else if(sortOrder === 'asc'){
-            setSortOrder('desc');
-            setSortBy(label);
-        }
-        else if(sortOrder === 'desc'){
-            setSortOrder(null);
-            setSortBy(null);
-        }
-    };
+function SortableTable(props){
+    const {config, data} = props;
+    const {sortBy, sortOrder, sortedData, handleClick} = useSort(data, config);
 
     const updatedConfig = config.map((column) => {
         if(!column.sortValue){
@@ -33,13 +14,60 @@ function SortableTable(props, data){
         else{
             return{
                 ...column,
-                header: () => <th onClick={() => handleClick(column.label)} >{column.label}  is sortable</th>
+                header: () => <th onClick={() => handleClick(column.label)} >
+                    <div className="flex items-center">
+                    {getIcons(column.label, sortBy, sortOrder)}
+                    {column.label} 
+                    </div>
+                    </th>
             }
         }
     });
 
 
-    return <Table {...props} config={updatedConfig} />;
+    return (
+        <div className="mx-auto transform translate-x-1/2">
+            <Table {...props} data={sortedData} config={updatedConfig} />
+        </div>
+    )
+
+}
+
+
+function getIcons(label,sortBy,sortOrder){
+    if(label !== sortBy){
+        return (
+            <div>
+                <GoChevronUp/>
+                <GoChevronDown/>
+            </div>
+        );
+    }
+
+
+
+    if(sortOrder === null){
+        return (
+            <div>
+                <GoChevronUp/>
+                <GoChevronDown/>
+            </div>
+        );
+    }
+    else if(sortOrder === 'asc'){
+        return (
+            <div>
+                <GoChevronUp/>
+            </div>
+        );
+    }
+    else if(sortOrder === 'desc'){
+        return (
+            <div>
+                <GoChevronDown/>
+            </div>
+        );
+    }
 }
 
 export default SortableTable;
