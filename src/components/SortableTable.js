@@ -26,7 +26,7 @@ function SortableTable(props){
 
 
     return (
-        <div className="mx-auto transform translate-x-1/2">
+        <div>
             <Table {...props} data={sortedData} config={updatedConfig} />
         </div>
     )
