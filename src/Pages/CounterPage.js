@@ -9,7 +9,7 @@ function CounterPage(){
     };
 
     const decrement = () =>{
-        setCount(count-1);
+        setCount(count - 1);
     }
 
     const handleChange = (e) =>{
@@ -40,11 +40,10 @@ function CounterPage(){
         return color;
     }
 
-
-
+    const hideArrows = " [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
 
     return(
-        <div className="w-full h-auto my-5 mx-10 border-2 rounded flex flex-col">
+        <div className="w-full h-auto my-5 mx-10 border-2 rounded flex flex-col shadow-lg shadow-gray-400">
             <h2 className= {`m-5 text-lg text-center ${getColor()}`} >Count is:  {count}</h2>
             <div className="flex flex-row justify-center">
                 <button className="border border-2 rounded m-3 p-3" onClick={decrement}>Decrement</button>
@@ -53,7 +52,9 @@ function CounterPage(){
 
             <form onSubmit={handleSubmit}  className="flex flex-col m-5">
                 <label>Add numbers</label>
-                <input onChange={handleChange} value={valueToAdd || ''} type="number" className=" m-3 p-2 bg-gray-50 border-gray-300"/>
+                <input onChange={handleChange} value={valueToAdd || ''} type="number"
+                className={` m-3 p-2 bg-gray-50 border-gray-300 ${hideArrows}`}/>
+                
                 <button className="border border-2 rounded m-3 p-3">Add</button>
             </form>
         </div>

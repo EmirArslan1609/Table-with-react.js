@@ -10,7 +10,7 @@ function App(){
         <div className="relative">
         <div className="flex flex-row justify-start">
             <Sidebar />
-            <div className="mx-8 my-1">
+            <div className=" mx-8 my-1">
 
                 <Route path="/dropdown">
                     <DropdownPage />
